@@ -5,6 +5,7 @@ This submission contains the findings, assumptions, customer-bug analysis, and P
 ## Contents
 
 - [`qa-report.md`](qa-report.md) — Part 1 findings, assumptions, Part 3 analysis, 30-day plan, and AI-use disclosure.
+- [`manual-test-cases.md`](manual-test-cases.md) — 20 executable manual cases covering all eight booking-page requirements.
 - [`pages/BasePage.ts`](pages/BasePage.ts) — shared page-object helper methods.
 - [`pages/BookingPage.ts`](pages/BookingPage.ts) — booking page locators and business actions.
 - [`tests/booking.spec.ts`](tests/booking.spec.ts) — seven Playwright tests covering defects in the supplied page.
