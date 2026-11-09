@@ -7,7 +7,7 @@ This submission contains the findings, assumptions, customer-bug analysis, and P
 - [`qa-report.md`](qa-report.md) — Part 1 findings, assumptions, Part 3 analysis, 30-day plan, and AI-use disclosure.
 - [`pages/BasePage.ts`](pages/BasePage.ts) — shared page-object helper methods.
 - [`pages/BookingPage.ts`](pages/BookingPage.ts) — booking page locators and business actions.
-- [`tests/booking.spec.ts`](tests/booking.spec.ts) — four Playwright tests covering defects in the supplied page.
+- [`tests/booking.spec.ts`](tests/booking.spec.ts) — five Playwright tests covering defects in the supplied page.
 - [`playwright.config.ts`](playwright.config.ts) — Playwright configuration.
 - [`package.json`](package.json) — test script and dependency declaration.
 

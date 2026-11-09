@@ -38,6 +38,19 @@ test('@BUG-03 rejects overlapping appointments for the same doctor', async ({ pa
   await bookingPage.expectTimeError('already has an appointment');
 });
 
+test('@BUG-04 preserves Europe/Berlin time during summer daylight saving time', async ({ page }) => {
+  await page.addInitScript(() => {
+    const fixedNow = Date.parse('2026-01-15T12:00:00Z');
+    Date.now = () => fixedNow;
+  });
+  const bookingPage = new BookingPage(page);
+  await bookingPage.open();
+  await bookingPage.fillForm({ date: '2026-04-15', time: '09:00' });
+  await bookingPage.book();
+
+  await bookingPage.expectAppointmentTime('09:00');
+});
+
 test('@BUG-05 cancels the appointment represented by the selected sorted row', async ({ page }) => {
   const appointments: Appointment[] = [
     { id: 'A-1002', patient: 'Later Patient', dob: '1980-01-01', email: 'later@example.com', doctor: 'weber', reason: 'Check-up', start: Date.parse('2030-01-15T14:00:00+01:00') },

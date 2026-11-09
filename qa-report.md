@@ -49,6 +49,10 @@
 - Requirement 7 applies both to parsing a selected date/time and to rendering seeded/stored appointments; Europe/Berlin’s historical/future DST rules must determine the offset rather than a fixed offset.
 - The supplied page has no public-holiday requirement, so holidays are not reported as defects.
 
+## Part 2 — automated coverage
+
+The Playwright tests are tagged to the findings above: `@BUG-01` covers Unicode/apostrophe names, `@BUG-02` covers the 17:45 closing-hours slot, `@BUG-03` covers overlapping appointments, `@BUG-04` covers Europe/Berlin summer daylight-saving conversion, and `@BUG-05` covers incorrect cancellation. BUG-04 freezes the page clock to a winter date and books a summer date within the 180-day window, making the DST regression deterministic.
+
 ## Part 3 — customer-bug analysis
 
 There are 13 customer bugs. The dominant pattern is **time-zone and calendar correctness**: reminders, booking confirmation, and iCal export each mishandle clock changes (BUG-2104, 2107, 2290, 2291). This is 4/13 bugs and includes 3 High-severity/open or recurring failures. The underlying cause is fixed-offset time handling instead of one timezone-aware representation and DST boundary tests.

@@ -28,6 +28,7 @@ export class BookingPage extends BasePage {
   readonly nameError = this.page.locator('[data-testid="error-name"]');
   readonly timeError = this.page.locator('[data-testid="error-time"]');
   readonly appointmentRows = this.page.locator('[data-testid="appointment-row"]');
+  readonly appointmentTimes = this.page.locator('[data-testid="appt-time"]');
   readonly cancelButtons = this.page.locator('[data-testid="cancel-appointment"]');
 
   constructor(page: Page) { super(page); }
@@ -53,6 +54,7 @@ export class BookingPage extends BasePage {
   async expectTimeError(text: string): Promise<void> { await expect(this.timeError).toContainText(text); }
   async expectRowCount(count: number): Promise<void> { await expect(this.appointmentRows).toHaveCount(count); }
   async expectRowsContain(text: string): Promise<void> { await expect(this.appointmentRows).toContainText(text); }
+  async expectAppointmentTime(text: string): Promise<void> { await expect(this.appointmentTimes.first()).toHaveText(text); }
 
   private static futureWeekday(daysAhead = 1): string {
     const date = new Date();
