@@ -24,4 +24,10 @@ npm test
 npx playwright show-report
 ```
 
-The tests open the page directly using a `file://` URL; no web server or login is required. Every run creates an HTML report in `playwright-report/`; failed tests also retain screenshots, videos, and traces. Generated reports are ignored by Git.
+The tests open the page directly using a `file://` URL; no web server or login is required. Every run creates an HTML report in `playwright-report/`; failed tests also retain screenshots, videos, and Playwright traces in `test-results/`. Generated reports are ignored by Git.
+
+To force tracing for every test, run `npm run test:trace`. Open a failed test trace with:
+
+```bash
+npx playwright show-trace test-results/<failed-test-folder>/trace.zip
+```
