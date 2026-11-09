@@ -2,7 +2,14 @@
   "name": "noscai-qa-assignment",
   "private": true,
   "scripts": {
-    "test": "playwright test"
+    "setup": "pnpm playwright install --with-deps",
+    "test": "playwright test",
+    "test:custom": "playwright test --grep",
+    "test:smoke": "playwright test --grep @smoke",
+    "test:regression": "playwright test --grep @regression",
+    "test:headed": "playwright test --headed",
+    "test:debug": "playwright test --debug",
+    "test:report": "playwright show-report"
   },
   "devDependencies": {
     "@playwright/test": "^1.53.0"

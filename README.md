@@ -21,6 +21,7 @@ From this repository:
 npm install
 npx playwright install chromium
 npm test
+npx playwright show-report
 ```
 
-The tests open the page directly using a `file://` URL; no web server or login is required.
+The tests open the page directly using a `file://` URL; no web server or login is required. Every run creates an HTML report in `playwright-report/`; failed tests also retain screenshots, videos, and traces. Generated reports are ignored by Git.
