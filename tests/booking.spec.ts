@@ -1,7 +1,7 @@
 import { test } from '@playwright/test';
 import { Appointment, BookingPage } from '../pages/BookingPage';
 
-test('accepts valid Unicode and apostrophe patient names', async ({ page }) => {
+test('@BUG-01 accepts valid Unicode and apostrophe patient names', async ({ page }) => {
   const bookingPage = new BookingPage(page);
   await bookingPage.open();
   await bookingPage.fillForm({ name: "Chloë D'Souza" });
@@ -11,7 +11,7 @@ test('accepts valid Unicode and apostrophe patient names', async ({ page }) => {
   await bookingPage.expectRowsContain("Chloë D'Souza");
 });
 
-test('rejects a start time that would end after closing', async ({ page }) => {
+test('@BUG-02 rejects a start time that would end after closing', async ({ page }) => {
   const bookingPage = new BookingPage(page);
   await bookingPage.open();
   await bookingPage.fillForm({ time: '17:45' });
@@ -20,7 +20,7 @@ test('rejects a start time that would end after closing', async ({ page }) => {
   await bookingPage.expectTimeError('opening hours');
 });
 
-test('rejects overlapping appointments for the same doctor', async ({ page }) => {
+test('@BUG-03 rejects overlapping appointments for the same doctor', async ({ page }) => {
   const date = new Date();
   date.setDate(date.getDate() + 1);
   while ([0, 6].includes(date.getDay())) date.setDate(date.getDate() + 1);
@@ -38,7 +38,7 @@ test('rejects overlapping appointments for the same doctor', async ({ page }) =>
   await bookingPage.expectTimeError('already has an appointment');
 });
 
-test('cancels the appointment represented by the selected sorted row', async ({ page }) => {
+test('@BUG-05 cancels the appointment represented by the selected sorted row', async ({ page }) => {
   const appointments: Appointment[] = [
     { id: 'A-1002', patient: 'Later Patient', dob: '1980-01-01', email: 'later@example.com', doctor: 'weber', reason: 'Check-up', start: Date.parse('2030-01-15T14:00:00+01:00') },
     { id: 'A-1001', patient: 'Earlier Patient', dob: '1980-01-01', email: 'earlier@example.com', doctor: 'yilmaz', reason: 'Vaccination', start: Date.parse('2030-01-15T09:00:00+01:00') },

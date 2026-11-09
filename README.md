@@ -31,3 +31,5 @@ To force tracing for every test, run `npm run test:trace`. Open a failed test tr
 ```bash
 npx playwright show-trace test-results/<failed-test-folder>/trace.zip
 ```
+
+Automated tests are tagged with the defect IDs from `qa-report.md`. Run one bug’s test with, for example, `npm test -- --grep @BUG-05`.
