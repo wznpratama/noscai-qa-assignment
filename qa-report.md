@@ -42,6 +42,22 @@
 
 **Expected:** The selected earlier appointment is removed and the later appointment remains (requirement 8). **Actual:** The displayed rows are sorted, but the handler splices the unsorted array by displayed index, so the later appointment is removed.
 
+### BUG-06 — Past weekday appointment dates are accepted
+
+**Severity:** High — it violates requirement 3 and can create appointments that have already elapsed.
+
+**Steps:** Choose a past weekday date; complete the remaining fields with valid data; submit.
+
+**Expected:** The booking is rejected because appointments cannot be booked in the past (requirement 3). **Actual:** The booking is accepted; validation checks the 180-day upper bound but does not reject dates before today.
+
+### BUG-07 — Past times on today’s date are accepted
+
+**Severity:** High — it violates requirement 3 and can create an appointment that is already in the past.
+
+**Steps:** Choose today; choose a time earlier than the current Europe/Berlin time; complete the remaining fields; submit.
+
+**Expected:** The booking is rejected because appointments cannot be booked in the past (requirement 3). **Actual:** The booking is accepted because validation checks the date but never compares today’s selected time with the current practice time.
+
 ## Assumptions
 
 - “Every appointment must start and end within opening hours” means a 30-minute appointment starting at 17:30 is the latest valid slot; 17:45 is invalid.
@@ -51,7 +67,7 @@
 
 ## Part 2 — automated coverage
 
-The Playwright tests are tagged to the findings above: `@BUG-01` covers Unicode/apostrophe names, `@BUG-02` covers the 17:45 closing-hours slot, `@BUG-03` covers overlapping appointments, `@BUG-04` covers Europe/Berlin summer daylight-saving conversion, and `@BUG-05` covers incorrect cancellation. BUG-04 freezes the page clock to a winter date and books a summer date within the 180-day window, making the DST regression deterministic.
+The Playwright tests are tagged to the findings above: `@BUG-01` covers Unicode/apostrophe names, `@BUG-02` covers the 17:45 closing-hours slot, `@BUG-03` covers overlapping appointments, `@BUG-04` covers Europe/Berlin summer daylight-saving conversion, `@BUG-05` covers incorrect cancellation, `@BUG-06` covers past weekday dates, and `@BUG-07` covers past times today. BUG-04, BUG-06, and BUG-07 freeze the page clock to make date-boundary regressions deterministic.
 
 ## Part 3 — customer-bug analysis
 

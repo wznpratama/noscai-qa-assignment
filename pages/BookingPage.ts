@@ -26,6 +26,7 @@ export class BookingPage extends BasePage {
   readonly time = this.page.locator('[data-testid="time"]');
   readonly bookButton = this.page.locator('[data-testid="book-button"]');
   readonly nameError = this.page.locator('[data-testid="error-name"]');
+  readonly dateError = this.page.locator('[data-testid="error-date"]');
   readonly timeError = this.page.locator('[data-testid="error-time"]');
   readonly appointmentRows = this.page.locator('[data-testid="appointment-row"]');
   readonly appointmentTimes = this.page.locator('[data-testid="appt-time"]');
@@ -51,7 +52,9 @@ export class BookingPage extends BasePage {
   async book(): Promise<void> { await this.bookButton.click(); }
   async cancelFirstAppointment(): Promise<void> { await this.cancelButtons.first().click(); }
   async expectNameError(text: string): Promise<void> { await expect(this.nameError).toHaveText(text); }
+  async expectDateError(): Promise<void> { await expect(this.dateError).toHaveText(/.+/); }
   async expectTimeError(text: string): Promise<void> { await expect(this.timeError).toContainText(text); }
+  async expectTimeErrorPresent(): Promise<void> { await expect(this.timeError).toHaveText(/.+/); }
   async expectRowCount(count: number): Promise<void> { await expect(this.appointmentRows).toHaveCount(count); }
   async expectRowsContain(text: string): Promise<void> { await expect(this.appointmentRows).toContainText(text); }
   async expectAppointmentTime(text: string): Promise<void> { await expect(this.appointmentTimes.first()).toHaveText(text); }
